@@ -1,5 +1,6 @@
-// TODO: create here a typescript interface for a participation
 /*
+Representation of an olympic participation
+
 example of participation:
 {
     id: 1,
@@ -9,3 +10,11 @@ example of participation:
     athleteCount: 372
 }
 */
+export interface Participation {
+
+  id: number;
+  year: number;
+  city: string;
+  medalsCount: number;
+  athleteCount: number;
+}
