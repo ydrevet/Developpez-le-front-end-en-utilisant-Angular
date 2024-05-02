@@ -9,6 +9,20 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> = of(null);
+  public pieChqrtData = [
+    {
+      name: 'Germany',
+      value: 12,
+    },
+    {
+      name: 'France',
+      value: 4,
+    },
+    {
+      name: 'Japan',
+      value: 7,
+    }
+  ];
 
   constructor(private olympicService: OlympicService) {}
 
