@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
+import { Olympic } from '../../core/models/Olympic';
 
 @Component({
   selector: 'app-home',
@@ -8,25 +10,27 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<any> = of(null);
-  public pieChqrtData = [
-    {
-      name: 'Germany',
-      value: 12,
-    },
-    {
-      name: 'France',
-      value: 4,
-    },
-    {
-      name: 'Japan',
-      value: 7,
-    }
-  ];
+  public olympics$: Observable<Olympic[]> = of();
+  public pieChartData$: Observable<Object[]> = of();
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService) {
+  }
+
+  private static formatPieChart(value: Olympic[]): { name: string, value: number }[] {
+    return value.map((olympic) => {
+      return {
+        name: olympic.country,
+        value: olympic.participations.reduce((acc, cur) => {
+          return acc + cur.medalsCount
+        }, 0),
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+    this.pieChartData$ = this.olympics$.pipe(
+      map(HomeComponent.formatPieChart)
+    );
   }
 }
