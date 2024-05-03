@@ -17,9 +17,6 @@ export class HomeComponent implements OnInit {
 
   constructor(private olympicService: OlympicService) {
   }
-  public formatTooltip(o: any) {
-    return `${o.data.label}\n${o.data.value}`;
-  }
 
   private static formatPieChart(value: Olympic[]): { name: string, value: number }[] {
     return value.map((olympic) => {
