@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
+import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,12 @@ import { Olympic } from '../../core/models/Olympic';
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of();
   public pieChartData$: Observable<Object[]> = of();
+  medalIcon = faMedal;
 
   constructor(private olympicService: OlympicService) {
+  }
+  public formatTooltip(o: any) {
+    return `${o.data.label}\n${o.data.value}`;
   }
 
   private static formatPieChart(value: Olympic[]): { name: string, value: number }[] {
