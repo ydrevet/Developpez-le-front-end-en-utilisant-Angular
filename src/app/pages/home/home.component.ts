@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = of();
   public pieChartData$: Observable<Object[]> = of();
   medalIcon = faMedal;
+  numberOfOlympics$: Observable<number> = of();
+  numberOfCountries$: Observable<number> = of();
 
   constructor(private olympicService: OlympicService) {
   }
@@ -33,6 +35,17 @@ export class HomeComponent implements OnInit {
     this.olympics$ = this.olympicService.getOlympics();
     this.pieChartData$ = this.olympics$.pipe(
       map(HomeComponent.formatPieChart)
+    );
+    this.numberOfOlympics$ = this.olympics$.pipe(
+      map((olympics) => {
+        const participations = olympics.flatMap((o) => o.participations);
+        const cities = participations.map((p) => p.city);
+        const uniqueCities = new Set(cities);
+        return uniqueCities.size;
+      })
+    );
+    this.numberOfCountries$ = this.olympics$.pipe(
+      map((olympics) => olympics.length)
     );
   }
 }
