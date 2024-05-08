@@ -1,0 +1,20 @@
+:host {
+  border: #04828e solid 3px;
+  border-radius: 10px;
+  padding: 0.5em;
+  text-align: center;
+}
+
+@media screen and (max-device-width: 412px) {
+  :host {
+    flex-grow: 1;
+  }
+}
+
+p:first-child {
+  color: lighten(black, 50%);
+}
+
+p:nth-child(2) {
+  font-weight: bold;
+}

@@ -1,7 +1,9 @@
-<h1>Medals per Country</h1>
-<section>
-  <app-summary-block label="Number of countries" [value]="numberOfCountries$ | async"/>
+<header>
+  <h1>Medals per Country</h1>
+</header>
+<section class="summary-container">
   <app-summary-block label="Number of olympic games" [value]="numberOfOlympics$ | async"/>
+  <app-summary-block label="Number of countries" [value]="numberOfCountries$ | async"/>
 </section>
 <figure>
   <ngx-charts-pie-chart [results]="pieChartData$ | async" [labels]="true">
