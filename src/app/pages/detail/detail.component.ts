@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { OlympicService } from '../../core/services/olympic.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { Observable, take } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { Olympic } from '../../core/models/Olympic';
 import { Participation } from '../../core/models/Participation';
 
@@ -11,28 +11,33 @@ import { Participation } from '../../core/models/Participation';
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.scss'
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
 
   protected countryName!: string;
-  private olympics$!: Observable<Olympic[]>;
   protected olympicCountry!: Olympic[];
   protected participations!: Participation[];
   protected participationsCount!: number;
   protected medalsCount!: number;
   protected athletesCount!: number;
   protected lineChartData!: { series: { name: number; value: number }[]; name: string }[];
+  private olympics$!: Observable<Olympic[]>;
+  private destroyerSubject$: Subject<void> = new Subject<void>();
 
   constructor(private activatedRoute: ActivatedRoute, private olympicService: OlympicService) {
+  }
+
+  ngOnDestroy(): void {
+    this.destroyerSubject$.next();
   }
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
     this.activatedRoute.params.pipe(
-      take(1),
+      takeUntil(this.destroyerSubject$),
       map(params => params['country'])
     ).subscribe((countryName) => this.countryName = countryName);
     this.olympics$.pipe(
-      take(1),
+      takeUntil(this.destroyerSubject$),
       map((olympics) => {
           return olympics.filter((o) => o.country === this.countryName);
         }
