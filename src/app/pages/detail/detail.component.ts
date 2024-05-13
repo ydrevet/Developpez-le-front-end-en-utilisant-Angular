@@ -20,6 +20,7 @@ export class DetailComponent implements OnInit {
   protected participationsCount!: number;
   protected medalsCount!: number;
   protected athletesCount!: number;
+  protected lineChartData!: { series: { name: number; value: number }[]; name: string }[];
 
   constructor(private activatedRoute: ActivatedRoute, private olympicService: OlympicService) {
   }
@@ -47,6 +48,18 @@ export class DetailComponent implements OnInit {
         this.athletesCount = this.participations
           .map(p => p.athleteCount)
           .reduce((acc, cur) => acc + cur);
+        const lineChartSeries = this.participations.map((p) => {
+          return {
+            value: p.medalsCount,
+            name: p.year
+          }
+        });
+        this.lineChartData = [
+          {
+            name: this.countryName,
+            series: lineChartSeries,
+          }
+        ];
       }
     });
   }

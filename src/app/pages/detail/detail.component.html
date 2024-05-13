@@ -8,7 +8,7 @@
   <app-summary-block label="Total number of athletes" [value]="athletesCount"/>
 </section>
 <figure>
-  <ngx-charts-line-chart/>
+  <ngx-charts-line-chart [results]="lineChartData" [xAxis]="true" xAxisLabel="Year" [yAxis]="true" yAxisLabel="Medals"/>
 </figure>
 } @else {
   <p>No data about {{ countryName }}</p>
