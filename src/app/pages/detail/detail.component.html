@@ -12,6 +12,9 @@
                            [yAxis]="true" [showYAxisLabel]="true" yAxisLabel="Medals"/>
   </figure>
 } @else {
-  <p>No data about {{ countryName }}</p>
+  <app-centered-message>
+    <h2>No data about country {{ countryName }}</h2>
+    <a routerLink="">Go to dashboard</a>
+  </app-centered-message>
 }
 <a routerLink="/" class="button-like">Return home</a>

@@ -11,10 +11,11 @@ import { SummaryBlockComponent } from './ui-components/summary-block/summary-blo
 import { HeaderComponent } from './ui-components/header/header.component';
 import { DetailComponent } from './pages/detail/detail.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CenteredMessageComponent } from './ui-components/centered-message/centered-message.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, SummaryBlockComponent, HeaderComponent, DetailComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, SummaryBlockComponent, HeaderComponent, DetailComponent, CenteredMessageComponent],
   imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, NgxChartsModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],
