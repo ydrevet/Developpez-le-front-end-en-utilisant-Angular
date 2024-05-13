@@ -1,5 +1,6 @@
+@if (olympicCountry.length === 1) {
 <header>
-  <h1>{{ countryName$ | async }}</h1>
+  <h1>{{ countryName }}</h1>
 </header>
 <section class="summary-container">
   <app-summary-block label="Number of entries" value="0"/>
@@ -9,4 +10,7 @@
 <figure>
   <ngx-charts-line-chart/>
 </figure>
+} @else {
+  <p>No data about {{ countryName }}</p>
+}
 <a routerLink="/" class="button-like">Return home</a>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { OlympicService } from '../../core/services/olympic.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable, take } from 'rxjs';
+import { Olympic } from '../../core/models/Olympic';
 
 @Component({
   selector: 'app-detail',
@@ -11,12 +12,25 @@ import { Observable } from 'rxjs';
 })
 export class DetailComponent implements OnInit {
 
+  protected countryName!: string;
+  private olympics$!: Observable<Olympic[]>;
+  protected olympicCountry!: Olympic[];
+
   constructor(private activatedRoute: ActivatedRoute, private olympicService: OlympicService) {
   }
 
-  protected countryName$!: Observable<string>;
-
   ngOnInit(): void {
-    this.countryName$ = this.activatedRoute.params.pipe(map((params: Params) => params['country']));
+    this.olympics$ = this.olympicService.getOlympics();
+    this.activatedRoute.params.pipe(
+      take(1),
+      map(params => params['country'])
+    ).subscribe((countryName) => this.countryName = countryName);
+    this.olympics$.pipe(
+      take(1),
+      map((olympics) => {
+          return olympics.filter((o) => o.country === this.countryName);
+        }
+      )
+    ).subscribe((olympics: Olympic[]) => {this.olympicCountry = olympics});
   }
 }
