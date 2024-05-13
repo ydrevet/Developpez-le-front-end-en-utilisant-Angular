@@ -19,7 +19,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   protected participationsCount!: number;
   protected medalsCount!: number;
   protected athletesCount!: number;
-  protected lineChartData!: { series: { name: number; value: number }[]; name: string }[];
+  protected lineChartData!: { series: { name: string; value: number }[]; name: string }[];
   private olympics$!: Observable<Olympic[]>;
   private destroyerSubject$: Subject<void> = new Subject<void>();
 
@@ -56,7 +56,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         const lineChartSeries = this.participations.map((p) => {
           return {
             value: p.medalsCount,
-            name: p.year
+            name: p.year.toString()
           }
         });
         this.lineChartData = [
