@@ -1,29 +1,16 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This project uses Angular version 17.3.8.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Installing dependencies
 
-## Development server
+As with every Node.js-based projects, dependencies are installed with `npm install`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Running the development server
 
-## Build
+The development server can be launched with `ng serve` or `npm start`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Network requests
 
-## Where to start
-
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
-
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
-
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
-
-You're now ready to implement the requested features.
-
-Good luck!
+This app minimizes the number of network requests to a minimum. A single request is made during application bootstrap to retrieve data about olympic games.
+Components derive their data using the result of the initial request.
