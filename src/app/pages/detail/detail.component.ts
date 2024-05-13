@@ -32,10 +32,12 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+
     this.activatedRoute.params.pipe(
       takeUntil(this.destroyerSubject$),
       map(params => params['country'])
     ).subscribe((countryName) => this.countryName = countryName);
+
     this.olympics$.pipe(
       takeUntil(this.destroyerSubject$),
       map((olympics) => {
@@ -46,19 +48,24 @@ export class DetailComponent implements OnInit, OnDestroy {
       this.olympicCountry = olympics;
       if (olympics.length === 1) {
         this.participations = olympics[0].participations;
+
         this.participationsCount = this.participations.length;
+
         this.medalsCount = this.participations
           .map(p => p.medalsCount)
           .reduce((acc, cur) => acc + cur);
+
         this.athletesCount = this.participations
           .map(p => p.athleteCount)
           .reduce((acc, cur) => acc + cur);
+
         const lineChartSeries = this.participations.map((p) => {
           return {
             value: p.medalsCount,
             name: p.year.toString()
           }
         });
+
         this.lineChartData = [
           {
             name: this.countryName,

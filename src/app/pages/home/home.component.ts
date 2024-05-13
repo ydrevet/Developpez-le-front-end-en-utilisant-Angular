@@ -12,11 +12,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public olympics$: Observable<Olympic[]> = of();
-  public pieChartData$: Observable<Object[]> = of();
-  medalIcon = faMedal;
-  numberOfOlympics$: Observable<number> = of();
-  numberOfCountries$: Observable<number> = of();
+  protected olympics$: Observable<Olympic[]> = of();
+  protected pieChartData$: Observable<Object[]> = of();
+  protected medalIcon = faMedal;
+  protected numberOfOlympics$: Observable<number> = of();
+  protected numberOfCountries$: Observable<number> = of();
 
   constructor(private olympicService: OlympicService, private router: Router) {
   }
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
       return {
         name: olympic.country,
         value: olympic.participations.reduce((acc, cur) => {
-          return acc + cur.medalsCount
+          return acc + cur.medalsCount;
         }, 0),
       }
     })
@@ -34,9 +34,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+
     this.pieChartData$ = this.olympics$.pipe(
       map(HomeComponent.formatPieChart)
     );
+
     this.numberOfOlympics$ = this.olympics$.pipe(
       map((olympics) => {
         const participations = olympics.flatMap((o) => o.participations);
@@ -45,12 +47,13 @@ export class HomeComponent implements OnInit {
         return uniqueCities.size;
       })
     );
+
     this.numberOfCountries$ = this.olympics$.pipe(
       map((olympics) => olympics.length)
     );
   }
 
-  onPieChartSelect($event: any) {
+  onPieChartSelected($event: any) {
     this.router.navigate(['/details', $event.name]);
   }
 }
