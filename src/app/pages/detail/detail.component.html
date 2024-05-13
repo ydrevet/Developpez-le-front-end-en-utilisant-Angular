@@ -1,2 +1,12 @@
-<p>detail works!</p>
-<a routerLink="/">Return home</a>
+<header>
+  <h1>{{ countryName$ | async }}</h1>
+</header>
+<section class="summary-container">
+  <app-summary-block label="Number of entries" value="0"/>
+  <app-summary-block label="Total number of medals" value="0"/>
+  <app-summary-block label="Total number of athletes" value="0"/>
+</section>
+<figure>
+  <ngx-charts-line-chart/>
+</figure>
+<a routerLink="/" class="button-like">Return home</a>
