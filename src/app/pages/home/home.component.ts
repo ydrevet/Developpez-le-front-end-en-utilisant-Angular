@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from '../../core/models/Olympic';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
   numberOfOlympics$: Observable<number> = of();
   numberOfCountries$: Observable<number> = of();
 
-  constructor(private olympicService: OlympicService) {
+  constructor(private olympicService: OlympicService, private router: Router) {
   }
 
   private static formatPieChart(value: Olympic[]): { name: string, value: number }[] {
@@ -47,5 +48,9 @@ export class HomeComponent implements OnInit {
     this.numberOfCountries$ = this.olympics$.pipe(
       map((olympics) => olympics.length)
     );
+  }
+
+  onPieChartSelect($event: any) {
+    this.router.navigate(['/details', $event.name]);
   }
 }
