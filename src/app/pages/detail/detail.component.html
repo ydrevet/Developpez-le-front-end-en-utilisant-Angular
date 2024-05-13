@@ -3,9 +3,9 @@
   <h1>{{ countryName }}</h1>
 </header>
 <section class="summary-container">
-  <app-summary-block label="Number of entries" value="0"/>
-  <app-summary-block label="Total number of medals" value="0"/>
-  <app-summary-block label="Total number of athletes" value="0"/>
+  <app-summary-block label="Number of entries" [value]="participationsCount"/>
+  <app-summary-block label="Total number of medals" [value]="medalsCount"/>
+  <app-summary-block label="Total number of athletes" [value]="athletesCount"/>
 </section>
 <figure>
   <ngx-charts-line-chart/>
