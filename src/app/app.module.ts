@@ -10,11 +10,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SummaryBlockComponent } from './ui-components/summary-block/summary-block.component';
 import { HeaderComponent } from './ui-components/header/header.component';
 import { DetailComponent } from './pages/detail/detail.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, SummaryBlockComponent, HeaderComponent, DetailComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, FontAwesomeModule],
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule, NgxChartsModule, FontAwesomeModule],
   providers: [],
   bootstrap: [AppComponent],
 })
